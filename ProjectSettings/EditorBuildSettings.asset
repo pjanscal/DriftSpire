@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BentheScene.unity
     guid: a106ef905a3793247875de64c572c4db
+  - enabled: 1
+    path: Assets/Scenes/BeginnerMap.unity
+    guid: 9ffd4ecdd4a96e54bbde1163a0a21c72
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
