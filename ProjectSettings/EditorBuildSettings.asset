@@ -24,8 +24,5 @@ EditorBuildSettings:
     path: Assets/Scenes/BeginnerMap.unity
     guid: 9ffd4ecdd4a96e54bbde1163a0a21c72
   m_configObjects:
-    com.unity.adaptivePerformance.basic.provider_settings: {fileID: 11400000, guid: aa7f87fd6b65ade41a6512bfb46d9188, type: 2}
-    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 3521715d37cf01940899622bf8e64454, type: 2}
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9610590017bc5304481ad9a5eddcfafb, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
