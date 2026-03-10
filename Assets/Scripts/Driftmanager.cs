@@ -17,7 +17,7 @@ public class Driftmanager : MonoBehaviour
     private float driftAngle=0;
     private float driftMultiplier=1;
     private float currentScore;
-    private float totalScore;
+    private float totalScore = 1000f;
 
     private bool isDrifting = false;
 
@@ -44,10 +44,10 @@ public class Driftmanager : MonoBehaviour
     void ManageDrift()
     {
         //speed is dus hoe snel hij gaat
-        speed = playerRB.velocity.magnitude;
+        speed = playerRB.linearVelocity.magnitude;
         //dit is de angle van de auto, die wordt uitgerekent door de forward van de auto en de kant waarop de auto slide en dat wordt meegegeven aan de driftingAngle.
         //en als de auto stil staat is de forward de voorkant van de auto en dat is genormalizeerd.
-        driftAngle = Vector3.Angle(playerRB.transform.forward, (playerRB.velocity + playerRB.transform.forward).normalized);
+        driftAngle = Vector3.Angle(playerRB.transform.forward, (playerRB.linearVelocity + playerRB.transform.forward).normalized);
         //Als de forward van de auto te ver van de velocity is gedraaid (verder dan 120 graden) dan is hij gefaald en gaat naar 0. 
         if (driftAngle>120)
         {
