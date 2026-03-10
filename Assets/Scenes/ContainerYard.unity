@@ -114865,6 +114865,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4712485297606155463, guid: 9a683a255ab75484bb68fc97bb0fb655, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4712485297606155463, guid: 9a683a255ab75484bb68fc97bb0fb655, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4712485297606155463, guid: 9a683a255ab75484bb68fc97bb0fb655, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 4961100620295398112, guid: 9a683a255ab75484bb68fc97bb0fb655, type: 3}
       propertyPath: m_Pivot.x
       value: 0
