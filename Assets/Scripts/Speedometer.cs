@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Speedometer : MonoBehaviour
 {
     public Rigidbody target;
@@ -11,7 +11,7 @@ public class Speedometer : MonoBehaviour
     public float maxSpeedArrowAngle;
 
     [Header("UI")]
-    public Text speedLabel; // The label that displays the speed;
+    public TMP_Text speedLabel; // The label that displays the speed;
     public RectTransform arrow; // The arrow in the speedometer
 
     private float speed = 0.0f;

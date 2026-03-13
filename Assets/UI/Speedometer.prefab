@@ -91,10 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Speedometer
   target: {fileID: 0}
-  maxSpeed: 0
-  minSpeedArrowAngle: 0
-  maxSpeedArrowAngle: 0
-  speedLabel: {fileID: 0}
+  maxSpeed: 260
+  minSpeedArrowAngle: 5.183
+  maxSpeedArrowAngle: -181.77
+  speedLabel: {fileID: 5712149238560519460}
   arrow: {fileID: 4941818025958041471}
 --- !u!1 &3908221784594627800
 GameObject:
@@ -303,8 +303,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -32.726936, y: 0.9814}
-  m_SizeDelta: {x: 65, y: 5}
+  m_AnchoredPosition: {x: -30.346909, y: 0.9814}
+  m_SizeDelta: {x: 60.2399, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &11547133091633275
 CanvasRenderer:
