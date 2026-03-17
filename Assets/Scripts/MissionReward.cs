@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // BELANGRIJK
+using UnityEngine.InputSystem;
 
 public class MissionReward : MonoBehaviour
 {
@@ -19,6 +19,12 @@ public class MissionReward : MonoBehaviour
 
     public void CompleteMission()
     {
+        if (driftManager == null || currencyManager == null)
+        {
+            Debug.LogError("DriftManager of CurrencyManager is niet gekoppeld!");
+            return;
+        }
+
         float driftScore = GetTotalScore();
         int reward = Mathf.RoundToInt(driftScore * multiplier);
 
@@ -30,9 +36,6 @@ public class MissionReward : MonoBehaviour
 
     private float GetTotalScore()
     {
-        var field = typeof(Driftmanager).GetField("totalScore",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-
-        return (float)field.GetValue(driftManager);
+        return driftManager.totalScore;
     }
 }

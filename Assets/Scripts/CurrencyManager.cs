@@ -3,7 +3,7 @@ using System.IO;
 
 public class CurrencyManager : MonoBehaviour
 {
-    public int coins;
+    public float coins;
 
     string path;
 
@@ -13,18 +13,18 @@ public class CurrencyManager : MonoBehaviour
         LoadCoins();
     }
 
-    public bool CanAfford(int amount)
+    public bool CanAfford(float amount)
     {
         return coins >= amount;
     }
 
-    public void Spend(int amount)
+    public void Spend(float amount)
     {
         coins -= amount;
         SaveCoins();
     }
 
-    public void AddCoins(int amount)
+    public void AddCoins(float amount)
     {
         coins += amount;
         SaveCoins();
@@ -39,7 +39,7 @@ public class CurrencyManager : MonoBehaviour
     {
         if (File.Exists(path))
         {
-            coins = int.Parse(File.ReadAllText(path));
+            coins = float.Parse(File.ReadAllText(path));
         }
         else
         {
