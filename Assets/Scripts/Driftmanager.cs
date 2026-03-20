@@ -17,7 +17,7 @@ public class Driftmanager : MonoBehaviour
     private float driftAngle=0;
     private float driftMultiplier=1;
     private float currentScore;
-    private float totalScore = 1000f;
+    public float totalScore = 1000f;
 
     private bool isDrifting = false;
 
