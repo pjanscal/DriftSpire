@@ -48,7 +48,6 @@ public class TestDriftController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = new Vector3(-0.2f, 0.2f, 0);
         currentGrip = normalRearGrip;
 
         if (enginePowerCurve == null || enginePowerCurve.length == 0)
