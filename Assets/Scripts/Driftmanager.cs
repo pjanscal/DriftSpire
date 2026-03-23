@@ -54,27 +54,26 @@ public class Driftmanager : MonoBehaviour
             driftAngle = 0;
         }
         //Als de drift angle groter is dan de minimumangle en speed hoger is dan minimum speed dan return true en startDrifting als niet dan stopDrift
-        if (driftAngle>minimumAngle&&speed>minimunSpeed)
+        if (driftAngle > minimumAngle && speed > minimunSpeed)
         {
-            if(!isDrifting||stopDriftingCoroutine!=null)
+            if (!isDrifting)
             {
-                StartDrift(); 
+                StartDrift();
             }
-        else
-            {
-                if (isDrifting&&stopDriftingCoroutine==null)
-                {
-                    StopDrift();
-                }
-            } 
-            // dit zorgt ervoor dat de currentScore veranderd op basis van hoe lang we driften en de angle dat we driften en de multiplier, 
-            // en de driftmultiplier gaat omhoog op basis van hoe lang je drift en je zet dan de UI aan
+
             if (isDrifting)
-                {
-                    currentScore += Time.deltaTime * driftAngle * driftMultiplier;
-                    driftMultiplier += Time.deltaTime;
-                    driftingObject.SetActive(true);
-                }               
+            {
+                currentScore += Time.deltaTime * driftAngle * driftMultiplier;
+                driftMultiplier += Time.deltaTime;
+                driftingObject.SetActive(true);
+            }
+        }
+        else
+        {
+            if (isDrifting && stopDriftingCoroutine == null)
+            {
+                StopDrift();
+            }
         }
     }
     //We maken een async aan dit kan zorgen dat het later in beeld komt zodat het smooth voelt, dit doen we dus door als niet aan het driften zijn om dan het systeem
@@ -121,10 +120,10 @@ public class Driftmanager : MonoBehaviour
         //Dit zorgt ervoor dat totalScore text veranderd naar de totalscore en dat een string maakt en ervoor zorgt dat de score in miljoenen en duizende een komma heeft, 
         // maar niet wanneer het een getal onder de duizend is
         //De multiplierText veranderd naar een string wat standaard 0 is maar als het veranderd een komma getal kan worden
-        totalScoreText.text="Total: "+totalScore.ToString("###.###.000");
-        MultiplierText.text=driftMultiplier.ToString("###.###.##0,0")+"X";
-        currentScoreText.text=currentScore.ToString("###.###.000");
-        driftAngleText.text=driftAngle.ToString("###.###.000")+"°";
+        totalScoreText.text="Total: "+totalScore.ToString(".##");
+        MultiplierText.text=driftMultiplier.ToString("0,0")+"X";
+        currentScoreText.text = currentScore.ToString("0.##");
+        driftAngleText.text=driftAngle.ToString("000")+"°";
     }
 
 }
