@@ -28,11 +28,15 @@ public class Driftmanager : MonoBehaviour
     public Color normalDriftColor;
     public Color nearStopDriftColor;
     public Color failDriftColor;
+
+    private XPReceiver xpReceiver;
+    
     
     private IEnumerator stopDriftingCoroutine = null;
     void Start()
     {
         driftingObject.SetActive(false);
+        xpReceiver = GetComponent<XPReceiver>();
     }
 
  
@@ -109,6 +113,8 @@ public class Driftmanager : MonoBehaviour
         currentScoreText.color=nearStopDriftColor;
         yield return new WaitForSeconds(driftingDelay * 4f);
         totalScore += currentScore;
+        if (xpReceiver != null)
+        xpReceiver.GiveXPFromDrift((int)currentScore);
         isDrifting = false;
         currentScoreText.color=failDriftColor;
         yield return new WaitForSeconds(0.5f);
