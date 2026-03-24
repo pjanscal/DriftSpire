@@ -15,12 +15,19 @@ public class CustomizationMenuManager : MonoBehaviour
         colorPickerPanel.SetActive(false);
     }
 
-    public void OpenColorPicker()
+    public void OpenColorPickerBody()
     {
-        mainMenuPanel.SetActive(false);
+        //mainMenuPanel.SetActive(false);
         respraysPanel.SetActive(false);
         colorPickerPanel.SetActive(true);
-        colorPickerUI.SetTarget();
+        colorPickerUI.SetTarget(ColorPickerUI.CarPart.Body);
+    }
+    public void OpenColorPickerWheels()
+    {
+        //mainMenuPanel.SetActive(false);
+        respraysPanel.SetActive(false);
+        colorPickerPanel.SetActive(true);
+        colorPickerUI.SetTarget(ColorPickerUI.CarPart.Wheels);
     }
 
     public void BackToMain()
