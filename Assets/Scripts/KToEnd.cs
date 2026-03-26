@@ -18,7 +18,7 @@ public class KToEnd : MonoBehaviour
     void Update()
     {
         float driftScore = GetTotalScore();
-        Debug.Log("Current Drift Score: " + driftScore); // check of score echt stijgt
+        
 
         // Check of target bereikt is en de hint nog niet is getoond
         if (!hasShown && driftScore >= targetScore)

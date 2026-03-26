@@ -24,7 +24,7 @@ public class Driftmanager : MonoBehaviour
     public float minimunSpeed = 5; // minimale snelheid om te kunnen driften
     public float minimumAngle = 10; // minimale hoek om als drift te tellen
     public float driftingDelay = 0.2f; // kleine delay voordat drift echt start
-    public GameObject driftingObject; // UI of effect dat laat zien dat je drift
+    public GameObject driftingObject; // UI dat laat zien dat je drift
     public Color normalDriftColor;
     public Color nearStopDriftColor;
     public Color failDriftColor;

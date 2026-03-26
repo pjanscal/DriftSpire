@@ -110002,6 +110002,54 @@ PrefabInstance:
       propertyPath: driftManager
       value: 
       objectReference: {fileID: 714694572}
+    - target: {fileID: 1394560004860447726, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 811.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394560004860447726, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 52.7068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394560004860447726, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 33.612
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394560004860447726, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 269.3534
+      objectReference: {fileID: 0}
+    - target: {fileID: 3059261418449710936, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 811.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3059261418449710936, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 55.4135
+      objectReference: {fileID: 0}
+    - target: {fileID: 3059261418449710936, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 33.611
+      objectReference: {fileID: 0}
+    - target: {fileID: 3059261418449710936, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -44.2743
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080418779708916214, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 811.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080418779708916214, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 52.7067
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080418779708916214, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 33.612
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080418779708916214, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 142.3534
+      objectReference: {fileID: 0}
     - target: {fileID: 4506144464516929634, guid: f6391dc9c1eef73439c7942430fbde86, type: 3}
       propertyPath: m_fontAsset
       value: 
