@@ -8,14 +8,14 @@ public class Driftmanager : MonoBehaviour
 {
 
     public Rigidbody playerRB; // De Rigidbody van de auto → hiermee krijgen we velocity (snelheid + richting)
-    public TMP_Text totalScoreText; 
+    public TMP_Text totalScoreText;
     public TMP_Text currentScoreText;
     public TMP_Text MultiplierText;
     public TMP_Text driftAngleText;
 
-    private float speed=0; // huidige snelheid van de auto
-    private float driftAngle=0; // hoek tussen waar auto kijkt en waar hij heen beweegt
-    private float driftMultiplier=1; // multiplier die groter wordt hoe langer je drift
+    private float speed = 0; // huidige snelheid van de auto
+    private float driftAngle = 0; // hoek tussen waar auto kijkt en waar hij heen beweegt
+    private float driftMultiplier = 1; // multiplier die groter wordt hoe langer je drift
     private float currentScore; // score van huidige drift (nog niet opgeslagen)
     public float totalScore = 0f; // totale score over alle drifts
 
@@ -30,16 +30,21 @@ public class Driftmanager : MonoBehaviour
     public Color failDriftColor;
 
     private XPReceiver xpReceiver; // script dat XP ontvangt (koppeling naar XP systeem)
-    
-    
+
+    //  QUEST MANAGER REFERENTIE
+    public QuestManager questManager;
+
+    //  NIEUW: hoogste multiplier tijdens deze drift
+    private float maxMultiplierReached = 0;
+
     private IEnumerator stopDriftingCoroutine = null; // referentie naar coroutine → zodat we hem kunnen stoppen
+
     void Start()
     {
         driftingObject.SetActive(false); // zet drift UI uit bij start
         xpReceiver = GetComponent<XPReceiver>(); // zoekt XPReceiver op dit object (zelfde auto)
     }
 
- 
     void Update()
     {
         ManageDrift(); // alle drift logica
@@ -54,14 +59,14 @@ public class Driftmanager : MonoBehaviour
 
         // driftAngle = hoek tussen waar auto kijkt en waar hij heen glijdt
         driftAngle = Vector3.Angle(
-            playerRB.transform.forward, 
+            playerRB.transform.forward,
             (playerRB.linearVelocity + playerRB.transform.forward).normalized
         );
         // Vector3.Angle = berekent hoek tussen 2 richtingen (in graden)
         // normalized = maakt vector lengte 1 (alleen richting telt)
 
         // Als de auto te ver draait (spin), dan telt het niet meer als drift
-        if (driftAngle>120)
+        if (driftAngle > 120)
         {
             driftAngle = 0;
         }
@@ -72,17 +77,35 @@ public class Driftmanager : MonoBehaviour
             if (!isDrifting)
             {
                 StartDrift(); // start drift als we dat nog niet waren
+                maxMultiplierReached = 0; //  reset bij nieuwe drift
             }
 
             if (isDrifting)
             {
                 // Score groeit over tijd
-                currentScore += Time.deltaTime * driftAngle * driftMultiplier;
-                // Time.deltaTime = tijd sinds vorige frame → zorgt voor smooth en FPS-onafhankelijk
+                float scoreGain = Time.deltaTime * driftAngle * driftMultiplier;
+                currentScore += scoreGain;
 
                 driftMultiplier += Time.deltaTime; // multiplier groeit hoe langer je drift
 
                 driftingObject.SetActive(true); // toon drift UI/effect
+
+                //  HOOGSTE MULTIPLIER BIJHOUDEN
+                if (driftMultiplier > maxMultiplierReached)
+                {
+                    maxMultiplierReached = driftMultiplier;
+                }
+
+                //  QUEST PROGRESS (CONTINUOUS)
+                if (questManager != null)
+                {
+                    questManager.AddProgress(QuestType.DriftTime, Time.deltaTime);
+                    questManager.AddProgress(QuestType.DriftScore, scoreGain);
+
+                    //  QUEST CHECKS (REAL-TIME)
+                    questManager.CheckQuest(QuestType.DriftAngle, driftAngle);
+                    questManager.CheckQuest(QuestType.MaxMultiplier, driftMultiplier);
+                }
             }
         }
         else
@@ -102,12 +125,12 @@ public class Driftmanager : MonoBehaviour
         if (!isDrifting)
         {
             // wacht een klein beetje voordat drift echt begint
-            await Task.Delay(Mathf.RoundToInt(1000*driftingDelay));
+            await Task.Delay(Mathf.RoundToInt(1000 * driftingDelay));
             driftMultiplier = 1; // reset multiplier
         }
 
         // Als we nog een stop coroutine hadden → stop die
-        if(stopDriftingCoroutine!=null)
+        if (stopDriftingCoroutine != null)
         {
             StopCoroutine(stopDriftingCoroutine);
             stopDriftingCoroutine = null;
@@ -120,7 +143,7 @@ public class Driftmanager : MonoBehaviour
     // Start de coroutine die drift netjes stopt
     void StopDrift()
     {
-        stopDriftingCoroutine= StoppingDrift(); // maak coroutine
+        stopDriftingCoroutine = StoppingDrift(); // maak coroutine
         StartCoroutine(stopDriftingCoroutine);  // start coroutine
     }
 
@@ -129,7 +152,7 @@ public class Driftmanager : MonoBehaviour
         // wacht 0.1 seconde → kleine buffer zodat drift niet direct stopt
         yield return new WaitForSeconds(0.1f);
 
-        currentScoreText.color=nearStopDriftColor; // kleur verandert (bijna stoppen)
+        currentScoreText.color = nearStopDriftColor; // kleur verandert (bijna stoppen)
 
         // wacht nog een beetje (afhankelijk van driftingDelay)
         yield return new WaitForSeconds(driftingDelay * 4f);
@@ -139,30 +162,35 @@ public class Driftmanager : MonoBehaviour
         // geef XP op basis van drift score
         if (xpReceiver != null)
             xpReceiver.GiveXPFromDrift((int)currentScore);
-        // (int) = cast → float naar int (hele getallen)
+
+        // quest checks (einde van drift)
+        if (questManager != null)
+        {
+            questManager.CheckQuest(QuestType.SingleDriftScore, currentScore);
+            questManager.CheckQuest(QuestType.SingleDriftTime, maxMultiplierReached);
+        }
 
         isDrifting = false; // drift is klaar
 
-        currentScoreText.color=failDriftColor; // kleur verandert naar fail
+        currentScoreText.color = failDriftColor; // kleur verandert naar fail
 
         yield return new WaitForSeconds(0.5f); // kleine pauze voor reset
 
-        currentScore=0; // reset huidige score
+        currentScore = 0; // reset huidige score
         driftingObject.SetActive(false); // verberg drift UI
     }
 
     void ManageUI()
     {
         // ToString(".##") = max 2 decimalen tonen
-        totalScoreText.text="Total: "+totalScore.ToString(".##");
+        totalScoreText.text = "Total: " + totalScore.ToString(".##");
 
         // "0,0" = duizendtallen met komma (bijv 1,000)
-        MultiplierText.text=driftMultiplier.ToString("0,0")+"X";
+        MultiplierText.text = driftMultiplier.ToString("0,0") + "X";
 
         currentScoreText.text = currentScore.ToString("0.##");
 
         // "000" = altijd 3 cijfers (bijv 005°)
-        driftAngleText.text=driftAngle.ToString("000")+"°";
+        driftAngleText.text = driftAngle.ToString("000") + "°";
     }
-
 }
