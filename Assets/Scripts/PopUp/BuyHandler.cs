@@ -5,19 +5,19 @@ public class BuyHandler : MonoBehaviour
 {
     public CurrencyManager currencyManager;
     public float cost = 20000f;
-    public int levelID;
     public Button playButton;
-
+    public Canvas canvas;
     public void OnYesClicked()
     {
         if (currencyManager.CanAfford(cost))
         {
             currencyManager.Spend(cost);
-            PlayerPrefs.SetInt("LevelUnlocked_" + levelID, 1);
 
-            Debug.Log("Level " + levelID + " unlocked!");
+            Debug.Log("Level unlocked!");
 
-            playButton.interactable = true; // ✅ FIX
+            playButton.interactable = true;
+
+            canvas.gameObject.SetActive(false);
         }
         else
         {

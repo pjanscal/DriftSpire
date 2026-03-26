@@ -2096,6 +2096,7 @@ MonoBehaviour:
   cost: 20000
   levelID: 2
   playButton: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!114 &938084004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2279,6 +2280,7 @@ MonoBehaviour:
   cost: 20000
   levelID: 0
   playButton: {fileID: 938084001}
+  canvas: {fileID: 1793008566}
 --- !u!4 &1051922843
 Transform:
   m_ObjectHideFlags: 0
@@ -2327,6 +2329,7 @@ MonoBehaviour:
   cost: 20000
   levelID: 0
   playButton: {fileID: 1261581420}
+  canvas: {fileID: 1363431628}
 --- !u!4 &1062094324
 Transform:
   m_ObjectHideFlags: 0
@@ -2860,6 +2863,7 @@ MonoBehaviour:
   cost: 20000
   levelID: 0
   playButton: {fileID: 1519696217}
+  canvas: {fileID: 1492645256}
 --- !u!4 &1305914217
 Transform:
   m_ObjectHideFlags: 0
@@ -3604,6 +3608,7 @@ MonoBehaviour:
   cost: 20000
   levelID: 4
   playButton: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!114 &1519696220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3739,6 +3744,7 @@ MonoBehaviour:
   cost: 20000
   levelID: 0
   playButton: {fileID: 1693747158}
+  canvas: {fileID: 2042797662}
 --- !u!4 &1658883461
 Transform:
   m_ObjectHideFlags: 0
@@ -3908,6 +3914,7 @@ MonoBehaviour:
   cost: 20000
   levelID: 3
   playButton: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!114 &1693747161
 MonoBehaviour:
   m_ObjectHideFlags: 0
