@@ -30,6 +30,15 @@ public class DriftControllerFixed : MonoBehaviour
     private bool isDrifting;
     private float currentGrip;
 
+    [HideInInspector] public CarUpgradeData upgradeData = new CarUpgradeData();
+
+    public void ApplyUpgrades()
+    {
+        motorPower = 1800f + (upgradeData.engineLevel * 400f);
+        brakePower = 4000f + (upgradeData.brakesLevel * 800f);
+        normalGrip = 1.2f + (upgradeData.handlingLevel * 0.2f);
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();

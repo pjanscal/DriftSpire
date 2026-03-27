@@ -1,87 +1,76 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour
 {
-    public CarController car; // De auto die we upgraden
-    public CurrencyManager currency; // Het geld systeem
+    public DriftControllerFixed car;
+    public CurrencyManager currency;
 
-    // 💰 Prijzen van upgrades
-    public int colorPrice = 100;
-    public int wheelPrice = 200;
-    public int hornPrice = 150;
-    public int lightPrice = 250;
+    [Header("Button Labels")]
+    public TextMeshProUGUI engineLabel;
+    public TextMeshProUGUI brakesLabel;
+    public TextMeshProUGUI handlingLabel;
+
+    [Header("Upgrade Costs")]
+    public int engineUpgradeCost = 300;
+    public int brakesUpgradeCost = 250;
+    public int handlingUpgradeCost = 200;
+
+    [Header("Buttons")]
+    public Button engineButton;
+    public Button brakesButton;
+    public Button handlingButton;
+
+    public Color normalColor = Color.white;
+    public Color maxedColor = Color.red;
+
+    private const int maxLevel = 3;
 
     void Start()
     {
-        // Laadt de opgeslagen upgrades
         car.upgradeData = SaveSystem.Load();
-
-        // Past ze meteen toe op de auto
         car.ApplyUpgrades();
+        RefreshUI();
     }
 
-    public void BuyColor(int index)
+    void RefreshUI()
     {
-        // Checkt of je genoeg geld hebt
-        if (!currency.CanAfford(colorPrice)) return;
+        engineLabel.text = "Engine\nLevel " + car.upgradeData.engineLevel + " / " + maxLevel;
+        brakesLabel.text = "Brakes\nLevel " + car.upgradeData.brakesLevel + " / " + maxLevel;
+        handlingLabel.text = "Handling\nLevel " + car.upgradeData.handlingLevel + " / " + maxLevel;
 
-        // Haalt geld eraf
-        currency.Spend(colorPrice);
-
-        // Zet de nieuwe kleur
-        car.upgradeData.colorIndex = index;
-
-        // Update de auto visueel
-        car.ApplyUpgrades();
-
-        // Sla op
-        SaveSystem.Save(car.upgradeData);
+        engineButton.interactable = car.upgradeData.engineLevel < maxLevel;
+        brakesButton.interactable = car.upgradeData.brakesLevel < maxLevel;
+        handlingButton.interactable = car.upgradeData.handlingLevel < maxLevel;
     }
 
-    public void ToggleHeadlights()
+    public void BuyEngineUpgrade()
     {
-        // Zet koplampen aan/uit (true/false switch)
-        car.upgradeData.headlightsOn = !car.upgradeData.headlightsOn;
-
+        if (car.upgradeData.engineLevel >= maxLevel) return;
+        if (!currency.CanAfford(engineUpgradeCost)) return;
+        currency.Spend(engineUpgradeCost);
+        car.upgradeData.engineLevel++;
         car.ApplyUpgrades();
         SaveSystem.Save(car.upgradeData);
     }
 
-    public void BuyHorn(int index)
+    public void BuyBrakesUpgrade()
     {
-        if (!currency.CanAfford(hornPrice)) return;
-
-        currency.Spend(hornPrice);
-
-        // Zet nieuwe horn
-        car.upgradeData.hornIndex = index;
-
-        // Geen ApplyUpgrades nodig (want geluid verandert pas bij afspelen)
-        SaveSystem.Save(car.upgradeData);
-    }
-
-    public void BuyWheels(int index)
-    {
-        if (!currency.CanAfford(wheelPrice)) return;
-
-        currency.Spend(wheelPrice);
-
-        // Zet nieuwe wielen
-        car.upgradeData.wheelIndex = index;
-
+        if (car.upgradeData.brakesLevel >= maxLevel) return;
+        if (!currency.CanAfford(brakesUpgradeCost)) return;
+        currency.Spend(brakesUpgradeCost);
+        car.upgradeData.brakesLevel++;
         car.ApplyUpgrades();
         SaveSystem.Save(car.upgradeData);
     }
 
-    public void BuyLights(int index)
+    public void BuyHandlingUpgrade()
     {
-        if (!currency.CanAfford(lightPrice)) return;
-
-        currency.Spend(lightPrice);
-
-        // Zet nieuwe lampen
-        car.upgradeData.lightIndex = index;
-
+        if (car.upgradeData.handlingLevel >= maxLevel) return;
+        if (!currency.CanAfford(handlingUpgradeCost)) return;
+        currency.Spend(handlingUpgradeCost);
+        car.upgradeData.handlingLevel++;
         car.ApplyUpgrades();
         SaveSystem.Save(car.upgradeData);
     }

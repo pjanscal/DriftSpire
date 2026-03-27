@@ -1,54 +1,35 @@
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class CarAppearance : MonoBehaviour
 {
     public VehicleProfile vehicleProfile;
     public MeshRenderer bodyRenderer;
-    public MeshRenderer[] wheelRenderers;
     public MeshRenderer[] headlightRenderers;
 
-    public void ApplyBodyColor()
+    void Start()
     {
-        bodyRenderer.material.color = new Color(vehicleProfile.bodyR, vehicleProfile.bodyG, vehicleProfile.bodyB);
+        vehicleProfile.Load();
+        ApplyBodyAppearance();
+    }
 
-        bodyRenderer.material.SetFloat("_Metallic", vehicleProfile.bodyMetallic);
-        bodyRenderer.material.SetFloat("_Smoothness", vehicleProfile.bodyGloss);
+    public void ApplyBodyAppearance()
+    {
+        // Ensure we use a unique material instance
+        Material mat = bodyRenderer.material;
 
+        // Set base color
+        Color bodyColor = new Color(vehicleProfile.bodyR, vehicleProfile.bodyG, vehicleProfile.bodyB);
+        mat.color = bodyColor;
+
+        // Set smoothness (gloss)
+        mat.SetFloat("_Smoothness", vehicleProfile.bodyGloss);
+
+        // Apply same appearance to headlights
         foreach (MeshRenderer headlight in headlightRenderers)
         {
-            headlight.material.color = new Color(vehicleProfile.bodyR, vehicleProfile.bodyG, vehicleProfile.bodyB);
-            headlight.material.SetFloat("_Metallic", vehicleProfile.bodyMetallic);
-            headlight.material.SetFloat("_Smoothness", vehicleProfile.bodyGloss);
-        }
-
-    }
-
-
-
-
-    public void ApplyWheelColor()
-    {
-        foreach (MeshRenderer wheel in wheelRenderers)
-        {
-            wheel.material.color = new Color(vehicleProfile.wheelR, vehicleProfile.wheelG, vehicleProfile.wheelB);
-            wheel.material.SetFloat("_Metallic", vehicleProfile.wheelMetallic);
-            wheel.material.SetFloat("_Smoothness", vehicleProfile.wheelGloss);
+            Material headMat = headlight.material;
+            headMat.color = bodyColor;
+            headMat.SetFloat("_Smoothness", vehicleProfile.bodyGloss);
         }
     }
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            vehicleProfile.Load();
-            ApplyBodyColor();
-            ApplyWheelColor();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 }
-

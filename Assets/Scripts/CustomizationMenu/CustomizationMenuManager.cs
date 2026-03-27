@@ -1,59 +1,75 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CustomizationMenuManager : MonoBehaviour
 {
+    [Header("Panels")]
     public GameObject mainMenuPanel;
-    public GameObject respraysPanel;
     public GameObject colorPickerPanel;
+    public GameObject upgradesPanel;
 
+    [Header("Components")]
     public ColorPickerUI colorPickerUI;
+    public CustomizationCamera customizationCamera;
 
-    public void OpenResprays()
+    public UpgradeManager upgradeManager;
+
+    private bool isInColorPicker = false;
+
+    void Start()
+    {
+        // Start in Main Menu
+        mainMenuPanel.SetActive(true);
+        colorPickerPanel.SetActive(false);
+        upgradesPanel.SetActive(false);
+    }
+
+    // --- MAIN MENU ---
+    public void OpenRespray()
     {
         mainMenuPanel.SetActive(false);
-        respraysPanel.SetActive(true);
-        colorPickerPanel.SetActive(false);
-    }
+        colorPickerPanel.SetActive(true);
 
-    public void OpenColorPickerBody()
-    {
-        //mainMenuPanel.SetActive(false);
-        respraysPanel.SetActive(false);
-        colorPickerPanel.SetActive(true);
+        isInColorPicker = true;
         colorPickerUI.SetTarget(ColorPickerUI.CarPart.Body);
-    }
-    public void OpenColorPickerWheels()
-    {
-        //mainMenuPanel.SetActive(false);
-        respraysPanel.SetActive(false);
-        colorPickerPanel.SetActive(true);
-        colorPickerUI.SetTarget(ColorPickerUI.CarPart.Wheels);
+
+        // Force camera update next frame
+        StopAllCoroutines();
+        StartCoroutine(ActivateCameraNextFrame());
     }
 
     public void BackToMain()
     {
         mainMenuPanel.SetActive(true);
-        respraysPanel.SetActive(false);
         colorPickerPanel.SetActive(false);
+
+        if (isInColorPicker)
+        {
+            customizationCamera.SlideToDefault();
+            isInColorPicker = false;
+        }
     }
 
-    public void BackToResprays()
+    public void OpenUpgrades()
     {
         mainMenuPanel.SetActive(false);
-        respraysPanel.SetActive(true);
-        colorPickerPanel.SetActive(false);
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        mainMenuPanel.SetActive(true);
-        respraysPanel.SetActive(false);
-        colorPickerPanel.SetActive(false);
+        upgradesPanel.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BackToMainFromUpgrades()
     {
-        
+        mainMenuPanel.SetActive(true);
+        upgradesPanel.SetActive(false);
+    }
+    public void GoToMainMenuScene()
+    {
+        SceneManager.LoadScene("StartUiScene");
+    }
+
+    IEnumerator ActivateCameraNextFrame()
+    {
+        yield return null; // wait 1 frame for UI to settle
+        customizationCamera.SlideForColorPicker();
     }
 }
